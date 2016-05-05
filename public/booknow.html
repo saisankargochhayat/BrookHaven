@@ -136,13 +136,19 @@
                     <div class="form-group">
                       <div class="col-sm-8 col-md-6">
                         <span class='dark'>Name</span>
-                        <input type="text" class="form-control"  placeholder="Name">
+                        <input type="text" class="form-control"  placeholder="Name" name='name'>
                       </div>
                     </div>
                     <div class="form-group">
-                      <div class="col-md-6">
+                      <div class="col-md-6 col-sm-8">
                         <span class='dark'>Email</span>
-                        <input type="email" class="form-control"  placeholder="Email">
+                        <input type="email" class="form-control"  placeholder="Email" name='email'>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-md-6 col-sm-8 mt20">
+                        <span class='dark'>Contact Number</span>
+                        <input type="text" class="form-control"  placeholder="Contact Number" name='contact_no'>
                       </div>
                     </div>
                     <div class="form-group">
@@ -171,6 +177,31 @@
                         <span class='dark'>Sub-Event Category</span>
                         <select name="event" id='subeventselect'>
                         </select>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-sm-8 col-md-6 mt20">
+                        <label class='dark'>Venues</label><br>
+                        <input type='radio' name='venue' value='venue1'>Venue1<br>
+                        <input type='radio' name='venue' value='venue2'>Venue2<br>
+                        <input type='radio' name='venue' value='venue3'>Venue3
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-sm-8 col-md-6 mt20">
+                        <span class='dark'>Number of People</span>
+                        <input name='no_of_people' type="number" class="form-control"  placeholder="0">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-sm-8 col-md-8 col-md-offset-2 mt20">
+                        <span class='dark'>Addon Services</span>
+                        <input name='addon_services' type="textarea" class="form-control">
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <div class="col-sm-4 col-md-2 col-md-offset-5 mt20">
+                        <button type='submit' class="button-o button-lg button-circle button-blue hover-fade">Submit</button>
                       </div>
                     </div>
                   </form>

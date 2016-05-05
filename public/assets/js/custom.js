@@ -1,3 +1,14 @@
+//Function to extract url parameters
+$.urlParam = function(name){
+	var results = new RegExp('[\?&]' + name + '=([^&#]*)').exec(window.location.href);
+  if(results)
+	 return decodeURIComponent(results[1] || 0);
+  else {
+    return null;
+  }
+}
+
+
 var appendit =function(value,text){
   $('#subeventselect').append($('<option>', {
     value: value,
@@ -58,5 +69,7 @@ var addsubevents = function(){
   }
 };
 $(document).ready(function(){
+  var eventid = $.urlParam('event');
+  $('#eventselect').val(eventid);
   addsubevents();
 });
