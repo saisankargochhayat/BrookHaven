@@ -11,6 +11,11 @@ var users = require('./routes/users');
 
 var app = express();
 
+var compression = require('compression');
+
+app.use(compression()); //use compression
+
+
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
 app.set('view engine', 'jade');
@@ -22,6 +27,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
+
 
 app.use('/', routes);
 app.use('/users', users);
@@ -56,6 +62,7 @@ app.use(function(err, req, res, next) {
     error: {}
   });
 });
+
 app.get('/', function (req, res) {
   res.send('Hello World!');
 });
