@@ -6,6 +6,7 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+
 var routes = require('./routes/index');
 var users = require('./routes/users');
 
@@ -36,6 +37,19 @@ app.use('/bookevent',function(req,res,next){
   res.status(200);
   res.send();
 });
+//mailer function
+var sendgrid  = require('sendgrid')('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');
+var email     = new sendgrid.Email({
+  to:       'brook16haven@gmail.com',
+  from:     'BrookHaven',
+  subject:  'Test mailer',
+  text:     'Hello world'
+});
+sendgrid.send(email, function(err, json) {
+  if (err) { return console.error(err); }
+  console.log(json);
+});
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
