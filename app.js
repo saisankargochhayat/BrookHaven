@@ -13,7 +13,7 @@ var users = require('./routes/users');
 var app = express();
 
 var compression = require('compression');
-
+var sendgrid  = require('sendgrid')('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');
 app.use(compression()); //use compression
 
 
@@ -32,9 +32,10 @@ app.use(express.static(path.join(__dirname, 'public')));
 
 app.use('/', routes);
 app.use('/users', users);
-app.use('/bookevent',function(req,res,next){
+app.post('/bookevent',function(req,res,next){
   console.log(req.body);
   res.status(200);
+  //mail construction for user
   var email     = new sendgrid.Email({
     to:       req.body.email,
     toname : req.body.name,
@@ -55,20 +56,66 @@ app.use('/bookevent',function(req,res,next){
   email.addSubstitution('-no-', req.body.no_of_people);
   email.addSubstitution('-venue-', req.body.venue);
   email.addSubstitution('-services-', req.body.addon_services);
+  //send mail to user
   sendgrid.send(email, function(err, json) {
     if (err) { console.log(err);
       res.status = 500;
-      res.send();
+      res.send('There was some problem. Please try again later.');
     }else{
       console.log(json);
-      res.send();
+      res.send('Booking succesfully received. Please check your email.');
     }
-
   });
 });
-//mailer function
-var sendgrid  = require('sendgrid')('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');
 
+app.post('/contactus',function(req,res,next){
+  console.log(req.body);
+  //Email construction for brookhaven
+  var email     = new sendgrid.Email({
+    to:       'brook16haven@gmail.com',
+    toname : 'BrookHaven',
+    from:     req.body.email,
+    fromname: req.body.name,
+    subject:  'Contact Us from BrookHaven',
+    replyto : req.body.email,
+    text:     'Message from '+ req.body.name+' < '+req.body.email+ ' > '
+    + ' : ' + req.body.message,
+    html: '<h1> Message from ' + req.body.name + ' < '+req.body.email+ ' > '
+    + ' : </h1> '+req.body.message
+  });
+  //sending email to brookhaven
+  sendgrid.send(email, function(err, json) {
+    if (err) { console.log(err);
+      res.status = 500;
+      res.send('There was some problem. Please try again later.');
+    }else{
+      console.log(json);
+      //if succesfully sent the mail , send an email to the user
+      //mail construction for user
+      var email     = new sendgrid.Email({
+        to:       req.body.email,
+        toname : req.body.name,
+        from:     'brook16haven@gmail.com',
+        fromname: 'BrookHaven',
+        subject:  'Contact Us from BrookHaven',
+        replyto : 'brook16haven@gmail.com',
+        text:     'Thank You for contacting us. We will get back to you shortly.',
+        html: '<h1> Thank You for contacting us. We will get back to you shortly.</h1> '
+      });
+      //send mail to user
+      sendgrid.send(email, function(err, json) {
+        if (err) { console.log(err);
+          res.status = 500;
+          res.send('There was some problem. Please try again later.');
+        }else{
+          //if succesfull , send success message
+          console.log(json);
+          res.send({'status' : 'success'});
+        }
+      });
+    }
+  });
+});
 
 
 // catch 404 and forward to error handler

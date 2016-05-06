@@ -2,7 +2,7 @@
  MAIN FUNCTION
 -------------------------------------------- */
 $(document).ready(function() {
-    
+
 	/* --------------------------------------------------------
 	 ANIMATED PAGE ON REVEALED
 	----------------------------------------------------------- */
@@ -14,34 +14,34 @@ $(document).ready(function() {
 			if ( !elem.hasClass('visible') ) {
 				var animationDelay = elem.data('animation-delay');
 				if ( animationDelay ) {
-				
+
 					setTimeout(function(){
 					 elem.addClass( animation + " visible" );
 					}, animationDelay);
-					
+
 				} else {
 					elem.addClass( animation + " visible" );
 				}
 			}
 		});
 	});
-    
+
 
     /* --------------------------------------------
 	 CLOSE COLLAPSE MENU ON MOBILE VIEW EXCEPT DROPDOWN
 	-------------------------------------------- */
 	$(function () {
-        "use strict"; 
-        $('.navbar-collapse ul li a:not(.dropdown-toggle)').on('click',function (event) { 
-            $('.navbar-toggle:visible').click(); 
-        }); 
+        "use strict";
+        $('.navbar-collapse ul li a:not(.dropdown-toggle)').on('click',function (event) {
+            $('.navbar-toggle:visible').click();
+        });
     });
-    
+
     /* --------------------------------------------
 	 STICKY SETTING
 	-------------------------------------------- */
 	$(function () {
-        "use strict"; 
+        "use strict";
         if( $(".navbar-sticky").length > 0){
             $(".navbar-sticky").sticky({ topSpacing: 0 });
             $(".navbar-sticky").css('z-index','100');
@@ -49,14 +49,14 @@ $(document).ready(function() {
             $(".navbar-sticky").addClass("top-nav-collapse");
         };
     });
-    
-    
+
+
     /* --------------------------------------------------------
 	 ANIMATED SCROLL PAGE WITH ACTIVE MENU - BOOTSTRAP SROLLSPY
 	----------------------------------------------------------- */
     $(function(){
         "use strict";
-        $(".navbar-op ul li a, .navbar-op a.navbar-brand, .intro-direction a, a.go-to-top").on('click', function(event) {    
+        $(".navbar-op ul li a, .navbar-op a.navbar-brand, .intro-direction a, a.go-to-top").on('click', function(event) {
             event.preventDefault();
             var hash = this.hash;
 
@@ -67,13 +67,13 @@ $(document).ready(function() {
             });
         });
     });
-    
+
 
     /* --------------------------------------------------------
 	 NAVBAR FIXED TOP ON SCROLL
 	----------------------------------------------------------- */
     $(function(){
-        "use strict"; 
+        "use strict";
         if( $(".navbar-standart").length > 0 ){
             $(".navbar-pasific").addClass("top-nav-collapse");
         } else {
@@ -87,12 +87,12 @@ $(document).ready(function() {
             });
         };
     });
-    
+
     /* --------------------------------------------------------
 	 NAVBAR-INVERSE FIXED TOP ON SCROLL
 	----------------------------------------------------------- */
     $(function(){
-        "use strict"; 
+        "use strict";
         if( $(".navbar-pasific-inverse").length > 0 ){
             $(window).scroll(function() {
                 if ($(".navbar").offset().top > 10)  {
@@ -104,8 +104,8 @@ $(document).ready(function() {
             });
         };
     });
-    
-    
+
+
     /* --------------------------------------------------------
 	 GO TO TOP SCROLL
 	----------------------------------------------------------- */
@@ -122,8 +122,8 @@ $(document).ready(function() {
             });
         };
     });
-    
-    
+
+
     /* --------------------------------------------------------
 	 BOOTSTRAP TOGGLE TOOLTIP
 	----------------------------------------------------------- */
@@ -131,11 +131,11 @@ $(document).ready(function() {
         "use strict";
         $('[data-toggle="tooltip"]').tooltip();
     });
-    
-    
+
+
     /* --------------------------------------------------------
 	 TEAM HOVER
-	----------------------------------------------------------- */   
+	----------------------------------------------------------- */
     $(function () {
         "use strict"
         $('.team-seven').hover(
@@ -144,14 +144,14 @@ $(document).ready(function() {
                 overlay.removeClass(overlay.data('return')).addClass(overlay.data('hover'));
             },
             function () {
-                var overlay = $(this).find('.team-seven-overlay');		
+                var overlay = $(this).find('.team-seven-overlay');
                 overlay.removeClass(overlay.data('hover')).addClass(overlay.data('return'));
 
             }
         );
     });
-    
-    
+
+
     /* --------------------------------------------------------
 	 COUNT TO
 	----------------------------------------------------------- */
@@ -159,18 +159,18 @@ $(document).ready(function() {
         "use strict";
 		$(".fact-number").appear(function(){
             var dataperc = $(this).attr('data-perc');
-			$(this).each(function(){			
+			$(this).each(function(){
 				$(this).find('.factor').delay(6000).countTo({
 					from: 10,
 					to: dataperc,
 					speed: 3000,
-					refreshInterval: 50,	
-				});  
+					refreshInterval: 50,
+				});
 			});
 		});
 	});
-    
- 
+
+
     /* --------------------------------------------------------
 	 OWL CAROUSEL FOR TESTIMONIAL
 	----------------------------------------------------------- */
@@ -179,69 +179,69 @@ $(document).ready(function() {
         var owlSectionOneItem = $("#owlSectionOneItem");
         owlSectionOneItem.owlCarousel({
             autoPlay: 5000,
-            items : 1,  
-            itemsDesktop : [1000,1],  
-            itemsDesktopSmall : [900,1],  
-            itemsTablet: [600,1],  
+            items : 1,
+            itemsDesktop : [1000,1],
+            itemsDesktopSmall : [900,1],
+            itemsTablet: [600,1],
             itemsMobile : false
         });
-        
+
         var owlSectionTwoItem = $("#owlSectionTwoItem");
         owlSectionTwoItem.owlCarousel({
             autoPlay: 5000,
-            items : 2,  
-            itemsDesktop : [1000,2],  
-            itemsDesktopSmall : [900,2],  
-            itemsTablet: [600,2],  
+            items : 2,
+            itemsDesktop : [1000,2],
+            itemsDesktopSmall : [900,2],
+            itemsTablet: [600,2],
             itemsMobile : false
         });
-        
+
         var owlSectionThreeItem = $("#owlSectionThreeItem");
         owlSectionThreeItem.owlCarousel({
             autoPlay: 5000,
-            items : 3,  
-            itemsDesktop : [1000,3],  
-            itemsDesktopSmall : [900,3],  
-            itemsTablet: [600,1],  
+            items : 3,
+            itemsDesktop : [1000,3],
+            itemsDesktopSmall : [900,3],
+            itemsTablet: [600,1],
             itemsMobile : false
         });
-        
+
         var owlSectionFourItem = $("#owlSectionFourItem");
         owlSectionFourItem.owlCarousel({
             autoPlay: 5000,
-            items : 4,  
-            itemsDesktop : [1000,4],  
-            itemsDesktopSmall : [900,2],  
-            itemsTablet: [600,2],  
+            items : 4,
+            itemsDesktop : [1000,4],
+            itemsDesktopSmall : [900,2],
+            itemsTablet: [600,2],
             itemsMobile : false
         });
-        
+
         var owlSectionFiveItem = $("#owlSectionFiveItem");
         owlSectionFiveItem.owlCarousel({
             autoPlay: 5000,
-            items : 5,  
-            itemsDesktop : [1000,5],  
-            itemsDesktopSmall : [900,3],  
-            itemsTablet: [600,3],  
+            items : 5,
+            itemsDesktop : [1000,5],
+            itemsDesktopSmall : [900,3],
+            itemsTablet: [600,3],
             itemsMobile : false
         });
-        
+
         var owlSectionSixItem = $("#owlSectionSixItem");
         owlSectionSixItem.owlCarousel({
             autoPlay: 5000,
-            items : 6,  
-            itemsDesktop : [1000,6],  
-            itemsDesktopSmall : [900,3],  
-            itemsTablet: [600,3],  
+            items : 6,
+            itemsDesktop : [1000,6],
+            itemsDesktopSmall : [900,3],
+            itemsTablet: [600,3],
             itemsMobile : false
         });
-        
 
-    });    
-    
+
+    });
+
     /* --------------------------------------------------------
 	 OWL CAROUSEL FOR SHOP
-	-----------------------------------------------------------  */          
+	-----------------------------------------------------------  */
     $(function() {
         "use strict";
         var owlShop = $("#owlShop");
@@ -250,7 +250,7 @@ $(document).ready(function() {
             slideSpeed : 1000,
             autoPlay : true,
             pagination: false,
-            items : 4, 
+            items : 4,
         });
 
         $(".shop-control-next").on('click', function(){
@@ -261,19 +261,19 @@ $(document).ready(function() {
         });
 
     });
-    
- 
+
+
     /* --------------------------------------------------------
 	 PAGE LOADER
 	----------------------------------------------------------- */
     $(function() {
-		"use strict";		
+		"use strict";
         $("body").imagesLoaded(function(){
             $(".loader-item").delay(700).fadeOut();
             $("#pageloader").delay(800).fadeOut("slow");
         });
 	});
-    
+
     /* --------------------------------------------------------
 	 JQUERY TYPED
 	----------------------------------------------------------- */
@@ -286,12 +286,12 @@ $(document).ready(function() {
                 typeSpeed: 50,
                 backDelay: 500,
                 loop: true,
-                contentType: 'html', 
+                contentType: 'html',
                 loopCount: false,
             });
         };
     });
-    
+
     /* --------------------------------------------------------
 	 JQUERY TYPED#2
 	----------------------------------------------------------- */
@@ -304,11 +304,11 @@ $(document).ready(function() {
                 typeSpeed: 50,
                 backDelay: 500,
                 loop: false,
-                contentType: 'html', 
+                contentType: 'html',
             });
         };
     });
-    
+
     /* --------------------------------------------------------
 	 JQUERY TEXTILLATE
 	----------------------------------------------------------- */
@@ -330,7 +330,7 @@ $(document).ready(function() {
             });
         };
     });
-    
+
     /* --------------------------------------------------------
 	 JQUERY ROTATE
 	----------------------------------------------------------- */
@@ -344,7 +344,7 @@ $(document).ready(function() {
              });
         };
     });
-    
+
     /* --------------------------------------------------------
 	 SHOP RANGE SLIDER
 	----------------------------------------------------------- */
@@ -363,7 +363,7 @@ $(document).ready(function() {
             });
         };
     });
-    
+
     /* --------------------------------------------------------
 	 BG YOUTUBE VIDEO
 	----------------------------------------------------------- */
@@ -373,7 +373,7 @@ $(document).ready(function() {
 			$(".mb-ytplayer").mb_YTPlayer();
 		}
 	});
-    
+
     /* --------------------------------------------------------
 	 YOUTUBE VIDEO POPUP
 	----------------------------------------------------------- */
@@ -390,27 +390,27 @@ $(document).ready(function() {
             });
 		};
 	});
-    
-    
-    
+
+
+
 }(jQuery));
 
 $(window).load(function() {
-    
+
     /* --------------------------------------------------------
 	 ISOTOPE MASONRY GRID
 	----------------------------------------------------------- */
     $( function() {
         "use strict";
-        
+
         var $portfolioMasonryOne = $('.portfolio-masonry-one').isotope({
             itemSelector: '.portfolio-masonry-one-item',
             masonry: {
               columnWidth: 180,
               gutter: 10
             }
-        }); 
-        
+        });
+
         var $portfolioMasonryOneFullwidth = $('.portfolio-masonry-one-fullwidth').isotope({
             itemSelector: '.portfolio-masonry-one-item',
             masonry: {
@@ -418,7 +418,7 @@ $(window).load(function() {
               gutter: 10
             }
         });
-        
+
         var $portfolioMasonryTwo = $('.portfolio-masonry-two').isotope({
             itemSelector: '.portfolio-masonry-two-item',
             masonry: {
@@ -426,7 +426,7 @@ $(window).load(function() {
               gutter: 10
             }
         });
-        
+
         var $portfolioMasonryTwoFullwidth = $('.portfolio-masonry-two-fullwidth').isotope({
             itemSelector: '.portfolio-masonry-two-item',
             masonry: {
@@ -434,14 +434,14 @@ $(window).load(function() {
               gutter: 10
             }
         });
-        
+
         var $portfolio = $('.portfolio').isotope({
             itemSelector: '.portfolio-item',
             masonry: {
               rowHeight: 280
             }
         });
-        
+
         var $blogMasonry6col = $('.blog-masonry-6col').isotope({
             itemSelector: '.blog-masonry-item',
             masonry: {
@@ -449,7 +449,7 @@ $(window).load(function() {
               gutter: 0
             }
         });
-        
+
         var $blogMasonry4Col = $('.blog-masonry-4col').isotope({
             itemSelector: '.blog-masonry-item',
             masonry: {
@@ -457,7 +457,7 @@ $(window).load(function() {
               gutter: 0
             }
         });
-        
+
         var $blogMasonry3Col = $('.blog-masonry-3col').isotope({
             itemSelector: '.blog-masonry-item',
             masonry: {
@@ -465,7 +465,7 @@ $(window).load(function() {
               gutter: 0
             }
         });
-        
+
         var $blogMasonry2Col = $('.blog-masonry-2col').isotope({
             itemSelector: '.blog-masonry-item',
             masonry: {
@@ -473,7 +473,7 @@ $(window).load(function() {
               gutter: 0
             }
         });
-        
+
         $('ul.filters li a').on('click', function() {
             var filterValue = $( this ).attr('data-filter');
             $portfolioMasonryOne.isotope({ filter: filterValue });
@@ -481,8 +481,8 @@ $(window).load(function() {
             $portfolioMasonryTwo.isotope({ filter: filterValue });
             $portfolioMasonryTwoFullwidth.isotope({ filter: filterValue });
             $portfolio.isotope({ filter: filterValue });
-        });       
-        
+        });
+
 
         $('ul.filters li a').on('click', function(){
             $('ul.filters li a').removeClass('active');
@@ -490,7 +490,7 @@ $(window).load(function() {
         });
 
     });
-    
+
     /* --------------------------------------------
      SECURITY CHECK HUMAN
     -------------------------------------------- */
@@ -501,7 +501,7 @@ $(window).load(function() {
         document.getElementById("checkHuman_a").value = a;
         document.getElementById("checkHuman_b").value = b;
     }
-   
+
     /* --------------------------------------------
      CONTACT FORM
     -------------------------------------------- */
@@ -509,7 +509,7 @@ $(window).load(function() {
     $(init);
 
     function init() {
-      $('#contactForm').show().submit( submitForm ).addClass( 'positioned' );  
+      $('#contactForm').show().submit( submitForm ).addClass( 'positioned' );
     }
 
     // Submit the form via Ajax
@@ -530,7 +530,7 @@ $(window).load(function() {
 
         $('#sendingMessage').fadeIn();
         contactForm.show();
-
+        console.log("Submitting form");
         $.ajax( {
           url: contactForm.attr( 'action' ) + "?ajax=true",
           type: contactForm.attr( 'method' ),
@@ -546,10 +546,9 @@ $(window).load(function() {
 
     // Handle the Ajax response
     function submitFinished( response ) {
-      response = $.trim( response );
       $('#sendingMessage').fadeOut();
 
-      if ( response == "success" ) {
+      if ( response.status == "success" ) {
 
         // Form submitted successfully:
         // 1. Display the success message
