@@ -108,7 +108,7 @@
                 <div class="navbar-collapse collapse navbar-right">
                     <ul class="nav navbar-nav mr20">
                         <li class="hidden"><a href="#page-top"></a></li>
-                        <li><a href="../"><strong>Go Home</strong></a></li>
+                        <li id='homelink'><a href="../"><strong>Go Home</strong></a></li>
                     </ul>
                 </div>
             </div>
@@ -329,6 +329,10 @@
         <script src="assets/js/main/imagesloaded.pkgd.min.js"></script>
         <script src="assets/js/main/main.js"></script>
           <script src="assets/js/custom.js"></script>
-
+          <script type="text/javascript">
+          $('#homelink').click(function(e){
+            window.location.href = "./";
+          });
+          </script>
     </body>
 </html>

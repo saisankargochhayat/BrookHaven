@@ -110,7 +110,7 @@
                         <li class="hidden"><a href="#page-top"></a></li>
                         <li><a href="#welcome">Welcome</a></li>
                         <li><a href="#portfolioGrid">Categories</a></li>
-                        <li><a href="./booknow.html">Book Now</a></li>
+                        <li id='booknowlink'><a href="./booknow.html">Book Now</a></li>
                         <!-- <li><a href="#service">Service</a></li> -->
                         <li><a href="#team">Team</a></li>
                         <!-- <li><a href="#features">Features</a></li> -->
@@ -2033,6 +2033,10 @@
         <script src="assets/js/main/jquery.sticky.js"></script>
         <script src="assets/js/main/imagesloaded.pkgd.min.js"></script>
         <script src="assets/js/main/main.js"></script>
-
+        <script type="text/javascript">
+        $('#booknowlink').click(function(e){
+          window.location.href = "./booknow.html";
+        });
+        </script>
     </body>
 </html>
