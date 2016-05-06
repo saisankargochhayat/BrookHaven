@@ -89,8 +89,8 @@ app.post('/contactus',function(req,res,next){
       replyto : req.body.email,
       text:     'Message from '+ req.body.name+' < '+req.body.email+ ' > '
       + ' : ' + req.body.message,
-      html: '<h1> Message from ' + req.body.name + ' < '+req.body.email+ ' > '
-      + ' : </h1> '+req.body.message
+      html: '<h3> Message from ' + req.body.name + ' < '+req.body.email+ ' > '
+      + ' : </h3> <br><h2>'+req.body.message+ '</h2>'
     });
     //sending email to brookhaven
     sendgrid.send(email, function(err, json) {
