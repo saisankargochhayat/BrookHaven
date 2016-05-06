@@ -139,13 +139,14 @@
                     <div class="form-group">
                       <div class="col-md-6 col-sm-8 mt20">
                         <span class='dark'>Contact Number</span>
-                        <input required type="tel" class="form-control"  placeholder="Contact Number" name='contact_no'>
+                        <input required type='tel' pattern='\d{10}' class="form-control"  placeholder="Contact Number" name='contact_no'>
                       </div>
                     </div>
                     <div class="form-group">
                       <div class="col-md-6 mt20">
                         <span class='dark'>Event Category</span>
-                        <select name="event" id='eventselect' onchange="addsubevents()">
+                        <select required name="event" id='eventselect' onchange="addsubevents()">
+                          <option value='' selected>--Select Category--</option>
                           <option value='wedding'>Wedding</option>
                           <option value='social_gathering'>Social Gathering</option>
                           <option value='party'>Party</option>
@@ -166,16 +167,16 @@
                     <div class="form-group" id='subevent'>
                       <div class="col-md-6 mt20">
                         <span class='dark'>Sub-Event Category</span>
-                        <select name="subevent" id='subeventselect'>
+                        <select required name="subevent" id='subeventselect'>
                         </select>
                       </div>
                     </div>
                     <div class="form-group">
                       <div class="col-sm-8 col-md-6 mt20">
                         <label class='dark'>Venues</label><br>
-                        <input type='radio' name='venue' value='venue1'>Venue1<br>
-                        <input type='radio' name='venue' value='venue2'>Venue2<br>
-                        <input type='radio' name='venue' value='venue3'>Venue3
+                        <input type='radio' name='venue' value='venue1' checked> Venue1<br>
+                        <input type='radio' name='venue' value='venue2'> Venue2<br>
+                        <input type='radio' name='venue' value='venue3'> Venue3
                       </div>
                     </div>
                     <div class="form-group">
