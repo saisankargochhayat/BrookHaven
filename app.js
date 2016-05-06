@@ -42,7 +42,8 @@ app.use('/bookevent',function(req,res,next){
     fromname: 'BrookHaven',
     subject:  'BrookHaven Booking Order Received',
     replyto : 'brook16haven@gmail.com',
-    text:     'Hello '+req.body.name
+    text:     'Hello '+req.body.name,
+    html: '<h2> Hello '+req.body.name + '</h2>'
   });
   email.setFilters({"templates": {"settings":
   {"enabled": 1, "template_id": "66d56738-e156-43ae-8dff-915a5248af75"}}});
