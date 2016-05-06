@@ -71,50 +71,60 @@ app.post('/bookevent',function(req,res,next){
 app.post('/contactus',function(req,res,next){
   console.log(req.body);
   //Email construction for brookhaven
-  var email     = new sendgrid.Email({
-    to:       'brook16haven@gmail.com',
-    toname : 'BrookHaven',
-    from:     req.body.email,
-    fromname: req.body.name,
-    subject:  'Contact Us from BrookHaven',
-    replyto : req.body.email,
-    text:     'Message from '+ req.body.name+' < '+req.body.email+ ' > '
-    + ' : ' + req.body.message,
-    html: '<h1> Message from ' + req.body.name + ' < '+req.body.email+ ' > '
-    + ' : </h1> '+req.body.message
-  });
-  //sending email to brookhaven
-  sendgrid.send(email, function(err, json) {
-    if (err) { console.log(err);
-      res.status = 500;
-      res.send('There was some problem. Please try again later.');
-    }else{
-      console.log(json);
-      //if succesfully sent the mail , send an email to the user
-      //mail construction for user
-      var email     = new sendgrid.Email({
-        to:       req.body.email,
-        toname : req.body.name,
-        from:     'brook16haven@gmail.com',
-        fromname: 'BrookHaven',
-        subject:  'Contact Us from BrookHaven',
-        replyto : 'brook16haven@gmail.com',
-        text:     'Thank You for contacting us. We will get back to you shortly.',
-        html: '<h1> Thank You for contacting us. We will get back to you shortly.</h1> '
-      });
-      //send mail to user
-      sendgrid.send(email, function(err, json) {
-        if (err) { console.log(err);
-          res.status = 500;
-          res.send('There was some problem. Please try again later.');
-        }else{
-          //if succesfull , send success message
-          console.log(json);
-          res.send({'status' : 'success'});
-        }
-      });
-    }
-  });
+  var a = parseInt(req.body.checkHuman_a);
+  var b = parseInt(req.body.checkHuman_b);
+  var c = parseInt(req.body.senderHuman);
+  console.log(a + ' + '+b+ ' == '+c);
+  if(a+b !== c){
+    console.log("Captcha check failed");
+    res.satus = 500;
+    res.send("Not human ?");
+  }else{
+    var email     = new sendgrid.Email({
+      to:       'brook16haven@gmail.com',
+      toname : 'BrookHaven',
+      from:     req.body.email,
+      fromname: req.body.name,
+      subject:  'Contact Us from BrookHaven',
+      replyto : req.body.email,
+      text:     'Message from '+ req.body.name+' < '+req.body.email+ ' > '
+      + ' : ' + req.body.message,
+      html: '<h1> Message from ' + req.body.name + ' < '+req.body.email+ ' > '
+      + ' : </h1> '+req.body.message
+    });
+    //sending email to brookhaven
+    sendgrid.send(email, function(err, json) {
+      if (err) { console.log(err);
+        res.status = 500;
+        res.send('There was some problem. Please try again later.');
+      }else{
+        console.log(json);
+        //if succesfully sent the mail , send an email to the user
+        //mail construction for user
+        var email     = new sendgrid.Email({
+          to:       req.body.email,
+          toname : req.body.name,
+          from:     'brook16haven@gmail.com',
+          fromname: 'BrookHaven',
+          subject:  'Contact Us from BrookHaven',
+          replyto : 'brook16haven@gmail.com',
+          text:     'Thank You for contacting us. We will get back to you shortly.',
+          html: '<h1> Thank You for contacting us. We will get back to you shortly.</h1> '
+        });
+        //send mail to user
+        sendgrid.send(email, function(err, json) {
+          if (err) { console.log(err);
+            res.status = 500;
+            res.send('There was some problem. Please try again later.');
+          }else{
+            //if succesfull , send success message
+            console.log(json);
+            res.send({'status' : 'success'});
+          }
+        });
+      }
+    });
+  }
 });
 
 
