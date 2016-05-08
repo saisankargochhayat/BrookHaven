@@ -145,7 +145,7 @@
                     <div class="form-group">
                       <div class="col-md-6 mt20">
                         <span class='dark'>Event Category</span>
-                        <select required name="event" id='eventselect' onchange="addsubevents()">
+                        <select required name="event" id='eventselect' onchange="addsubevents()" class='form-control'>
                           <option value='' selected>--Select Category--</option>
                           <option value='wedding'>Wedding</option>
                           <option value='social_gathering'>Social Gathering</option>
@@ -156,6 +156,13 @@
                           <option value='exhibition'>Exhibition</option>
                           <option value='others'>Others</option>
                         </select>
+                        <!-- <select class="form-control">
+                          <option>1</option>
+                          <option>2</option>
+                          <option>3</option>
+                          <option>4</option>
+                          <option>5</option>
+                        </select> -->
                       </div>
                     </div>
                     <div class="form-group" hidden id='otherinput'>
@@ -167,16 +174,8 @@
                     <div class="form-group" id='subevent'>
                       <div class="col-md-6 mt20">
                         <span class='dark'>Sub-Event Category</span>
-                        <select required name="subevent" id='subeventselect'>
+                        <select required name="subevent" id='subeventselect' class='form-control'>
                         </select>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <div class="col-sm-8 col-md-6 mt20">
-                        <label class='dark'>Venues</label><br>
-                        <input type='radio' name='venue' value='venue1' checked> Venue1<br>
-                        <input type='radio' name='venue' value='venue2'> Venue2<br>
-                        <input type='radio' name='venue' value='venue3'> Venue3
                       </div>
                     </div>
                     <div class="form-group">
@@ -186,7 +185,31 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <div class="col-sm-8 col-md-8 col-md-offset-2 mt20">
+                      <div class="col-sm-8 col-md-6 mt20">
+                        <label class='dark'>Venues</label><br>
+                        <div class="radio">
+                          <label>
+                            <input type="radio" value="venue1" name='venue'>
+                            Venue 1
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label>
+                            <input type="radio" value="venue2" name='venue'>
+                            Venue 2
+                          </label>
+                        </div>
+                        <div class="radio">
+                          <label>
+                            <input type="radio" value="venue3" name='venue'>
+                            Venue 3
+                          </label>
+                        </div>
+                      </div>
+                    </div>
+
+                    <div class="form-group">
+                      <div class="col-sm-8 col-md-6 mt20">
                         <span class='dark'>Addon Services</span>
                         <input name='addon_services' type="textarea" class="form-control">
                       </div>
