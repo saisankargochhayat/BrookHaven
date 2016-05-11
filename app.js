@@ -38,43 +38,82 @@ app.use('/users', users);
 app.post('/bookevent',function(req,res,next){
   console.log(req.body);
   res.status(200);
-  //mail construction for user
-  var subevent;
-  if(!req.body.subevent){
-    subevent = req.body.otherevent;
-  }else{
-    subevent= req.body.subevent;
-  }
-  var email     = new sendgrid.Email({
-    to:       req.body.email,
-    toname : req.body.name,
-    from:     'brook16haven@gmail.com',
-    fromname: 'BrookHaven',
-    subject:  'BrookHaven Booking Order Received',
-    replyto : 'brook16haven@gmail.com',
-    text:     'Hello '+req.body.name+',',
-    html: '<h2> Hello '+req.body.name + ',</h2>'
-  });
-  email.setFilters({"templates": {"settings":
-  {"enabled": 1, "template_id": "66d56738-e156-43ae-8dff-915a5248af75"}}});
-  email.addSubstitution('-name-', req.body.name);
-  email.addSubstitution('-email-', req.body.email);
-  email.addSubstitution('-contact_no-', req.body.contact_no);
-  email.addSubstitution('-event-', getstring(req.body.event));
-  email.addSubstitution('-subevent-', getstring(subevent));
-  email.addSubstitution('-no-', req.body.no_of_people);
-  email.addSubstitution('-venue-', req.body.venue);
-  email.addSubstitution('-services-', req.body.addon_services);
-  //send mail to user
-  sendgrid.send(email, function(err, json) {
-    if (err) { console.log(err);
-      res.status = 500;
-      res.send('There was some problem. Please try again later.');
+  var a = parseInt(req.body.checkHuman_a);
+  var b = parseInt(req.body.checkHuman_b);
+  var c = parseInt(req.body.senderHuman);
+  console.log(a + ' + '+b+ ' == '+c);
+  if(a+b == c){
+    //mail construction for Admin
+    var subevent;
+    if(!req.body.subevent){
+      subevent = req.body.otherevent;
     }else{
-      console.log(json);
-      res.send('Booking succesfully received. Please check your email.');
+      subevent= req.body.subevent;
     }
-  });
+    var email     = new sendgrid.Email({
+      to:       'brook16haven@gmail.com',
+      toname : 'BrookHaven',
+      from:     req.body.email,
+      fromname: req.body.name,
+      subject:  'BrookHaven Booking Order Received',
+      replyto : req.body.email,
+      text:     'Booking Order Received',
+      html: '<h2> Booking Order Received </h2>'
+    });
+    email.setFilters({"templates": {"settings":
+    {"enabled": 1, "template_id": "66d56738-e156-43ae-8dff-915a5248af75"}}});
+    email.addSubstitution('-name-', req.body.name);
+    email.addSubstitution('-email-', req.body.email);
+    email.addSubstitution('-contact_no-', req.body.contact_no);
+    email.addSubstitution('-event-', getstring(req.body.event));
+    email.addSubstitution('-subevent-', getstring(subevent));
+    email.addSubstitution('-no-', req.body.no_of_people);
+    email.addSubstitution('-venue-', req.body.venue);
+    email.addSubstitution('-services-', req.body.addon_services);
+    //send mail to user
+    sendgrid.send(email, function(err, json) {
+      if (err) { console.log(err);
+        res.status = 500;
+        res.send('There was some problem. Please try again later.');
+      }else{
+        //Mail to Admin Sent...Now mail to User
+        console.log(json);
+        var email     = new sendgrid.Email({
+          to:       req.body.email,
+          toname : req.body.name,
+          from:     'brook16haven@gmail.com',
+          fromname: 'BrookHaven',
+          subject:  'BrookHaven Booking Order Received',
+          replyto : 'brook16haven@gmail.com',
+          text:     'Hello '+req.body.name+',',
+          html: '<h2> Hello '+req.body.name + ',</h2>'
+        });
+        email.setFilters({"templates": {"settings":
+        {"enabled": 1, "template_id": "66d56738-e156-43ae-8dff-915a5248af75"}}});
+        email.addSubstitution('-name-', req.body.name);
+        email.addSubstitution('-email-', req.body.email);
+        email.addSubstitution('-contact_no-', req.body.contact_no);
+        email.addSubstitution('-event-', getstring(req.body.event));
+        email.addSubstitution('-subevent-', getstring(subevent));
+        email.addSubstitution('-no-', req.body.no_of_people);
+        email.addSubstitution('-venue-', req.body.venue);
+        email.addSubstitution('-services-', req.body.addon_services);
+        //send mail to user
+        sendgrid.send(email, function(err, json) {
+          if (err) { console.log(err);
+            res.status = 500;
+            res.send('There was some problem. Please try again later.');
+          }else{
+            console.log(json);
+            res.send('Booking succesfully received. Please check your email.');
+          }
+        });
+      }
+    });
+  }else{
+    res.status = 500;
+    res.send('Not Human ?');
+  }
 });
 
 app.post('/contactus',function(req,res,next){
