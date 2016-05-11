@@ -30,12 +30,21 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
+var getstring = function(id){
+  	return id.split('_').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
+};
 app.use('/', routes);
 app.use('/users', users);
 app.post('/bookevent',function(req,res,next){
   console.log(req.body);
   res.status(200);
   //mail construction for user
+  var subevent;
+  if(!req.body.subevent){
+    subevent = req.body.otherevent;
+  }else{
+    subevent= req.body.subevent;
+  }
   var email     = new sendgrid.Email({
     to:       req.body.email,
     toname : req.body.name,
@@ -51,8 +60,8 @@ app.post('/bookevent',function(req,res,next){
   email.addSubstitution('-name-', req.body.name);
   email.addSubstitution('-email-', req.body.email);
   email.addSubstitution('-contact_no-', req.body.contact_no);
-  email.addSubstitution('-event-', req.body.event);
-  email.addSubstitution('-subevent-', req.body.subevent);
+  email.addSubstitution('-event-', getstring(req.body.event));
+  email.addSubstitution('-subevent-', getstring(subevent));
   email.addSubstitution('-no-', req.body.no_of_people);
   email.addSubstitution('-venue-', req.body.venue);
   email.addSubstitution('-services-', req.body.addon_services);

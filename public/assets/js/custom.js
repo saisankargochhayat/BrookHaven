@@ -15,6 +15,7 @@ var appendit =function(value,text){
     text: text
 }));
 }
+
 var addsubevents = function(){
   id=$('#eventselect option:selected').val();
   $('#otherinput').prop('hidden',true);
@@ -73,8 +74,8 @@ var addsubevents = function(){
 
   }
 	var subeventid = $.urlParam('subevent');
-	console.log(subeventid);
 	$('#subeventselect').val(subeventid);
+
 };
 $(document).ready(function(){
   var eventid = $.urlParam('event');
