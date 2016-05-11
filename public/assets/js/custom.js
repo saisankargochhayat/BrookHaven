@@ -22,6 +22,8 @@ var addsubevents = function(){
   $('#subeventselect').find('option').remove();
   $('#subeventselect').prop('disabled',false);
 	$('#submitbtn').prop('disabled',false);
+	$('#subeventselect').prop('required',true);
+	$('#otherinputselect').prop('required',false);
   switch (id) {
     case 'wedding':
         $('#subeventselect').prop('disabled',true);
@@ -64,6 +66,8 @@ var addsubevents = function(){
           case 'others':
               $('#subevent').prop('hidden',true);
               $('#otherinput').prop('hidden',false);
+							$('#subeventselect').prop('required',false);
+							$('#otherinputselect').prop('required',true);
             break;
             default:
 
