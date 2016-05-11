@@ -21,6 +21,7 @@ var addsubevents = function(){
   $('#subevent').prop('hidden',false);
   $('#subeventselect').find('option').remove();
   $('#subeventselect').prop('disabled',false);
+	$('#submitbtn').prop('disabled',false);
   switch (id) {
     case 'wedding':
         $('#subeventselect').prop('disabled',true);
@@ -67,6 +68,9 @@ var addsubevents = function(){
             default:
 
   }
+	var subeventid = $.urlParam('subevent');
+	console.log(subeventid);
+	$('#subeventselect').val(subeventid);
 };
 $(document).ready(function(){
   var eventid = $.urlParam('event');
