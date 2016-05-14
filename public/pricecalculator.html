@@ -212,22 +212,23 @@
                       </div>
                     </div>
                     <div class="form-group">
-                      <div class="col-sm-8 col-md-6 mt20">
+                      <div class="col-sm-8 col-md-6 mt20" id='people'>
                         <span class='dark'>Number of People</span>
-                        <input name='no_of_people' type="number" min="0" step="10" class="form-control"  placeholder="0">
+                        <input name='no_of_people' value =0 type="number"
+                        min="0" step="10" class="form-control"
+                        placeholder="0" onchange="calculatePrice()">
                       </div>
                     </div>
                     <div class="form-group" id='venue'>
                       <div class="col-sm-8 col-md-6 mt20">
                         <label class='dark'>Venues</label><br>
                         <div class="filldata">
-                          <div class="radio">
-                            <label>
-                              <input type="radio" value="100" name='venue'>
-                              Venue 1 Rs100
-                            </label>
-                          </div>
                         </div>
+                      </div>
+                    </div>
+                    <div>
+                      <div class="col-sm-8 col-md-6 mt5 p0">
+                        <h1><small>Final Price <span id='finalPrice'></span></small></h1>
                       </div>
                     </div>
                 </div>
