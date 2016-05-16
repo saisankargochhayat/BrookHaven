@@ -8,7 +8,8 @@ var data = {
     "Paneer Makhani" : 45,
     "Chicken Tandoori" : 45,
     "Chicken 65" : 65,
-    "Rice": 30
+    "Rice": 30 ,
+    "Sohini Tandoori" : 5
   } ,
   "venue" : {
     "Ghatikia" : 1000,
