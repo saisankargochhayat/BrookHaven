@@ -159,6 +159,12 @@ app.post('/contactus',function(req,res,next){
           text:     'Thank You for contacting us. We will get back to you shortly.',
           html: '<h1> Thank You for contacting us. We will get back to you shortly.</h1> '
         });
+
+        //If the server does not get any route , it will redirect to 404 page.
+        app.use(function(req, res, next) {
+  res.status(404).send('Sorry cant find that!');
+});
+
         //send mail to user
         sendgrid.send(email, function(err, json) {
           if (err) { console.log(err);
