@@ -38,8 +38,58 @@ app.use('/', routes);
 app.use('/users', users);
 app.post('/bookwithoutquote',function(req,res,next){
   console.log(req.body);
-  res.status=200;
-  res.send("Done");
+  var a = parseInt(req.body.checkHuman_a);
+  var b = parseInt(req.body.checkHuman_b);
+  var c = parseInt(req.body.senderHuman);
+  var message = '<h2> Booking Order Received </h2> <br> Name : '+req.body.name +
+                '<br> Email : '+req.body.email +
+                '<br> Contact Number : ' + req.body.contact_no;
+  if(a+b == c){
+    var email = new sendgrid.Email({
+      to:      'brook16haven@gmail.com',
+      toname : 'BrookHaven',
+      from:     req.body.email,
+      fromname: req.body.name,
+      subject:  'BrookHaven Booking Order Without Quote Received',
+      replyto : req.body.email,
+      text:     'Booking Order Received Name : '+req.body.name+" Email : "+
+                  req.body.email + " Phone : "+req.body.contact_no,
+      html: message
+    });
+    sendgrid.send(email,function(err,json){
+      if(err){
+        console.log(err);
+        res.status = 500;
+        res.send("There was some problem in sending email. Please try again later.");
+      }else{
+        console.log(json);
+        message = "<h1>Thank You for booking with BrookHaven.</h1><br> Your request has been recorded. We will contact you shortly."
+        var email     = new sendgrid.Email({
+          to:       req.body.email,
+          toname : req.body.name,
+          from:     'brook16haven@gmail.com',
+          fromname: 'BrookHaven',
+          subject:  'Thank You for Booking in BrookHaven',
+          replyto : 'brook16haven@gmail.com',
+          text:     'Thank You for booking with BrookHaven. Your request has been recorded. We will contact you shortly.',
+          html: message
+        });
+        sendgrid.send(email,function(err,json){
+          if(err){
+            console.log(err);
+            res.status = 500;
+            res.send("There was some problem in sending email. Please try again later.");
+          }else{
+            res.status=200;
+            res.send("Mail succesfully sent.");
+          }
+        });
+      }
+    });
+  }else{
+    res.status = 500;
+    res.send('Not Human ?');
+  }
 });
 app.post('/bookwithquote',function(req,res,next){
   console.log(req.body);
