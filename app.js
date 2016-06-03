@@ -14,6 +14,7 @@ var app = express();
 
 var compression = require('compression');
 var sendgrid  = require('sendgrid')('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');
+var sendmail = function(){};
 app.use(compression()); //use compression
 
 
@@ -35,6 +36,21 @@ var getstring = function(id){
 };
 app.use('/', routes);
 app.use('/users', users);
+app.post('/bookwithoutquote',function(req,res,next){
+  console.log(req.body);
+  res.status=200;
+  res.send("Done");
+});
+app.post('/bookwithquote',function(req,res,next){
+  console.log(req.body);
+  res.status=200;
+  res.send("Done");
+});
+app.post('/calculateprice',function(req,res,next){
+  console.log(req.body);
+  res.status=200;
+  res.send("Done");
+});
 app.post('/bookevent',function(req,res,next){
   console.log(req.body);
   res.status(200);
