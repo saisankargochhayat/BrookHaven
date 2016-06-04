@@ -53,46 +53,20 @@ var buildForm = function(){
     console.log("Failed due to "+err);
   });
 };
-//------------------------------------------------------------------------------
 
-
-//--------------------------Functions to calculate price------------------------
-/*var calculateFood = function(){
-  var foodPrice = 0;
-  var foodEle = $('#food').find('input:checked');
-  $.each(foodEle,function(id,food){
-    foodPrice += parseInt(food.value);
-  });
-  var peopleEle = $('#people').find('input');
-  var people = peopleEle.prop('value');
-  return foodPrice * people;
-}
-var calculateVenue = function(){
-  var venueEle = $('#venue').find('input:checked');
-  if(venueEle.length){
-    return venueEle.prop('value');
-  }else{
-    return 0;
-  }
-}
-var calculatePrice = function(){
-  var TotalPrice = parseInt(calculateFood()) + parseInt(calculateVenue());
-  console.log(TotalPrice);
-  $('#finalPrice').text(TotalPrice);
-}*/
-//------------------------------------------------------------------------------
-
-//--------------------------------Temporary Changes-----------------------------
+//--------------------------------Get the form elements-----------------------------
 var getprice = function(){
   $('#finalPrice').text("Please Wait");
+  var form = $('#priceform').serialize();
+  console.log(form);
   $.ajax({
-    url : '/calculatePrice' ,
+    url : '/bookwithquote' ,
     method : 'POST' ,
-    data : $('#priceform').serialize()
+    data : form
   }).done(function(data){
     if(data.success){
-      $('#finalPrice').text(data.price + ' /-');
-      $('#book').removeClass('disabled');
+      $('#finalPrice').text('Rs ' + data.price + ' /-');
+      enablebook();
     }else{
       console.log("Request Failed");
       $('#finalPrice').text("Error");
@@ -103,9 +77,35 @@ var getprice = function(){
     $('#finalPrice').text("Error");
   });
 }
+//---------------------------------Booking with Price---------------------------
+
+var bookit = function(){
+  var obj = $('#priceform').serialize();
+  $.ajax({
+    method : 'POST',
+    url : '/bookwithquote',
+    data : obj
+  }).success(function(data){
+    if(data.success){
+      window.location.href = '/booked.html'
+    }else{
+      console.log("Request Failed Due to " + data.msg);
+    }
+  }).fail(function(err){
+    console.log("Request Failed Due to " + err);
+  });
+};
+//------------------------------------------------------------------------------
 var disablebook = function(){
   $('#book').addClass('disabled');
+  $('.personalDataForm').hide();
+  $('#booking').val(0);
 };
+var enablebook = function(){
+  $('#book').removeClass('disabled');
+  $('.personalDataForm').show();
+  $('#booking').val(1);
+}
 //------------------------------------------------------------------------------
 $(document).ready(function(){
   buildForm();

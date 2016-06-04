@@ -228,19 +228,83 @@
                         </div>
                       </div>
                     </div>
+                    <div class="col-md-2">
+                      <a onclick="getprice()"
+                      class="btn btn-primary button-lg animated" >Get Price</a>
+                    </div>
                     <div>
                       <div class="col-sm-8 col-md-6 mt5 p0">
-                        <h1><small>Final Price Rs <span id='finalPrice'>0/-</span></small></h1>
+                        <h1><small>Final Price : <span id='finalPrice'>0/-</span></small></h1>
                       </div>
                     </div>
                   </div>
-                    <div class="row">
-                      <div class="col-md-2 col-md-offset-2">
-                        <a onclick="getprice()"
-                        class="btn btn-primary button-lg animated" >Get Price</a>
+                  <div class="row mt20 personalDataForm">
+                      <div class="form-group">
+                        <div class="col-sm-6 col-md-6 mt10">
+                          <span class='dark'>Name</span>
+                          <input required type="text" class="form-control"  placeholder="Name" name='name'>
+                        </div>
                       </div>
-                      <div class="col-md-2 col-md-offset-3">
-                        <a id='book'
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-6">
+                          <span class='dark'>Email</span>
+                          <input required type="email" class="form-control"  placeholder="Email" name='email'>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-md-6 col-sm-8 mt20">
+                          <span class='dark'>Contact Number</span>
+                          <input required type='tel' pattern='\d{10}' class="form-control"  placeholder="Contact Number" name='contact_no'>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-md-6 mt20">
+                          <span class='dark'>Event Category</span>
+                          <select required name="event" id='eventselect' onchange="addsubevents()" class='form-control'>
+                            <option value='' selected>--Select Category--</option>
+                            <option value='wedding'>Wedding</option>
+                            <option value='social_gathering'>Social Gathering</option>
+                            <option value='party'>Party</option>
+                            <option value='corporate_event'>Corporate Event</option>
+                            <option value='student_event'>Student Event</option>
+                            <option value='award_ceremony'>Award Ceremonies</option>
+                            <option value='exhibition'>Exhibition</option>
+                            <option value='others'>Others</option>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group" hidden id='otherinput'>
+                        <div class="col-md-6 mt20">
+                          <span class='dark'>Please specify</span>
+                          <input name="otherevent" class='form-control' id='otherinputselect'>
+                        </div>
+                      </div>
+                      <div class="form-group" id='subevent'>
+                        <div class="col-md-6 mt20">
+                          <span class='dark'>Sub-Event Category</span>
+                          <select required name="subevent" id='subeventselect' class='form-control'>
+                          </select>
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-8 col-md-6 mt20">
+                          <span class='dark'>Addon Services</span>
+                          <input name='addon_services' type="textarea" class="form-control">
+                        </div>
+                      </div>
+                      <div class="form-group">
+                        <div class="col-sm-8 col-md-6 mt20">
+                          <span class='dark'>Check Human</span>
+                            <input type="text" name="senderHuman" id="senderHuman" class="input-md input-rounded form-control" placeholder="" required>
+                            <input type="hidden" name="checkHuman_a" id="checkHuman_a">
+                            <input type="hidden" name="checkHuman_b" id="checkHuman_b">
+                        </div>
+                      </div>
+                  </div>
+                    <div class="row mt10 personalDataForm">
+                      <div class="col-md-2 col-md-offset-5">
+                        <input type="hidden" name="booking" value=0 id="booking">
+                        <a id='book' onclick="bookit()"
                         class="btn btn-primary button-lg animated" >Book Now</a>
                       </div>
                     </div>
@@ -372,6 +436,7 @@
         <script src="assets/js/main/jquery.sticky.js"></script>
         <script src="assets/js/main/imagesloaded.pkgd.min.js"></script>
         <script src="assets/js/main/main.js"></script>
+        <script src="assets/js/custom.js"></script>
         <script src="assets/js/main/pricecalculator.js"></script>
     </body>
 </html>
