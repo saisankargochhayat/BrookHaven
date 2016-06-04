@@ -165,7 +165,7 @@ app.post('/bookwithquote',function(req,res,next){
     res.send(response);
   }
 });
-app.post('/calculateprice',function(req,res,next){
+app.post('/calculatePrice',function(req,res,next){
   console.log(req.body);
   var response = {
     success : true ,

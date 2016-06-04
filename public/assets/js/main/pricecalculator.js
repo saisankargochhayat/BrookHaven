@@ -10,7 +10,7 @@ var buildFood = function(){
         $('<input/>' , {
           type: 'checkbox' ,
           value: itemValue ,
-          onchange : 'calculatePrice()'
+          name : 'foodcheck'
         })
       ).append(itemName)
       .append($('<strong/>').append(' Rs' + itemValue))
@@ -29,7 +29,6 @@ var buildVenue = function(){
       type : 'radio',
       value : price,
       name : 'venue',
-      onclick: 'calculatePrice()'
     }))
     .append(location)
     .append($('<strong/>')
@@ -45,7 +44,7 @@ var buildForm = function(){
 
 
 //--------------------------Functions to calculate price------------------------
-var calculateFood = function(){
+/*var calculateFood = function(){
   var foodPrice = 0;
   var foodEle = $('#food').find('input:checked');
   $.each(foodEle,function(id,food){
@@ -67,9 +66,31 @@ var calculatePrice = function(){
   var TotalPrice = parseInt(calculateFood()) + parseInt(calculateVenue());
   console.log(TotalPrice);
   $('#finalPrice').text(TotalPrice);
+}*/
+//------------------------------------------------------------------------------
+
+//--------------------------------Temporary Changes-----------------------------
+var getprice = function(){
+  $('#finalPrice').text("Please Wait");
+  $.ajax({
+    url : '/calculatePrice' ,
+    method : 'POST' ,
+    data : $('#priceform').serialize()
+  }).done(function(data){
+    if(data.success){
+      $('#finalPrice').text(data.price + ' /-');
+    }else{
+      console.log("Request Failed");
+      $('#finalPrice').text("Error");
+    }
+
+  }).fail(function(err){
+    console.log("Request Failed due to "+err);
+    $('#finalPrice').text("Error");
+  });
 }
+
 //------------------------------------------------------------------------------
 $(document).ready(function(){
   buildForm();
-  calculatePrice();
 });

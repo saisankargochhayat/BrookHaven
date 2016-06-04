@@ -204,6 +204,7 @@
 
                 </div>
                 <div class="col-md-8 bg-light mb100 p30">
+                  <form id='priceform'>
                   <div class="row">
                     <div class="form-group" id='food'>
                       <div class="col-md-6 mt20">
@@ -217,7 +218,7 @@
                         <span class='dark'>Number of People</span>
                         <input name='no_of_people' value =0 type="number"
                         min="0" step="10" class="form-control"
-                        placeholder="0" onchange="calculatePrice()">
+                        placeholder="0">
                       </div>
                     </div>
                     <div class="form-group" id='venue'>
@@ -229,13 +230,13 @@
                     </div>
                     <div>
                       <div class="col-sm-8 col-md-6 mt5 p0">
-                        <h1><small>Final Price Rs <span id='finalPrice'></span>/-</small></h1>
+                        <h1><small>Final Price Rs <span id='finalPrice'>0/-</span></small></h1>
                       </div>
                     </div>
                   </div>
                     <div class="row">
                       <div class="col-md-2 col-md-offset-2">
-                        <a
+                        <a onclick="getprice()"
                         class="button button-pasific button-lg hover-ripple-out animated" >Get Price</a>
                       </div>
                       <div class="col-md-2 col-md-offset-3">
@@ -243,9 +244,8 @@
                         class="button button-pasific button-lg hover-ripple-out animated" >Book Now</a>
                       </div>
                     </div>
+                  </form>
                 </div>
-            </div>
-            <div class="row">
             </div>
         </div>
 
@@ -337,7 +337,6 @@
                             </p>
                         </div>
                         <!-- footer bottom end -->
-
                     </div><!-- row end -->
                 </div><!-- container end -->
             </div><!-- container-fluid end -->
