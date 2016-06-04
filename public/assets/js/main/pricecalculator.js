@@ -1,84 +1,72 @@
 //-------------------------------------Functions to build form--------------
-var buildFood = function(){
+var buildFood = function(data){
   var foodEle = $('#food').find('.filldata');
   foodEle.empty();
-  $.each(data.food,function(itemName,itemValue){
+  $.each(data.food,function(itemkey,item){
+    //console.log(item);
     foodEle.append($('<div/>', {
       class: 'checkbox'
     }).append(
       $('<label/>').append(
         $('<input/>' , {
           type: 'checkbox' ,
-          value: itemValue ,
-          name : 'foodcheck'
+          value: itemkey ,
+          name : 'foodcheck',
+          onchange : 'disablebook()'
         })
-      ).append(itemName)
-      .append($('<strong/>').append(' Rs' + itemValue))
+      ).append(item.name)
+      .append($('<strong/>').append(' Rs' + item.price))
     ));
   });
 };
-var buildVenue = function(){
+var buildVenue = function(data){
   var venueEle = $('#venue').find('.filldata');
   venueEle.empty();
-  $.each(data.venue,function(location,price){
+  $.each(data.venue,function(key,location){
     venueEle.append($('<div/>',{
       class : 'radio'
     })
     .append($('<label/>')
     .append($('<input>' , {
       type : 'radio',
-      value : price,
+      value : key,
       name : 'venue',
+      onchange : 'disablebook()'
     }))
-    .append(location)
+    .append(location.name)
     .append($('<strong/>')
-    .append(" Rs" + price)
+    .append(" Rs" + location.price)
   )));
   });
 }
 var buildForm = function(){
-  buildFood();
-  buildVenue();
-};
-//------------------------------------------------------------------------------
-
-
-//--------------------------Functions to calculate price------------------------
-/*var calculateFood = function(){
-  var foodPrice = 0;
-  var foodEle = $('#food').find('input:checked');
-  $.each(foodEle,function(id,food){
-    foodPrice += parseInt(food.value);
+  $.ajax({
+    method : 'post',
+    url : '/getform',
+    cache : true ,
+    async : false
+  }).success(function(data){
+    //console.log(data);
+    buildFood(data);
+    buildVenue(data);
+  }).fail(function(err){
+    console.log("Failed due to "+err);
   });
-  var peopleEle = $('#people').find('input');
-  var people = peopleEle.prop('value');
-  return foodPrice * people;
-}
-var calculateVenue = function(){
-  var venueEle = $('#venue').find('input:checked');
-  if(venueEle.length){
-    return venueEle.prop('value');
-  }else{
-    return 0;
-  }
-}
-var calculatePrice = function(){
-  var TotalPrice = parseInt(calculateFood()) + parseInt(calculateVenue());
-  console.log(TotalPrice);
-  $('#finalPrice').text(TotalPrice);
-}*/
-//------------------------------------------------------------------------------
+};
 
-//--------------------------------Temporary Changes-----------------------------
+//--------------------------------Get the form elements-----------------------------
 var getprice = function(){
   $('#finalPrice').text("Please Wait");
+  var form = $('#priceform').serialize();
+  console.log(form);
   $.ajax({
-    url : '/calculatePrice' ,
+    url : '/bookwithquote' ,
     method : 'POST' ,
-    data : $('#priceform').serialize()
+    data : form
   }).done(function(data){
     if(data.success){
-      $('#finalPrice').text(data.price + ' /-');
+      $('#finalPrice').text('Rs ' + data.price + ' /-');
+      enablebook();
     }else{
       console.log("Request Failed");
       $('#finalPrice').text("Error");
@@ -89,8 +77,37 @@ var getprice = function(){
     $('#finalPrice').text("Error");
   });
 }
+//---------------------------------Booking with Price---------------------------
 
+var bookit = function(){
+  var obj = $('#priceform').serialize();
+  $.ajax({
+    method : 'POST',
+    url : '/bookwithquote',
+    data : obj
+  }).success(function(data){
+    if(data.success){
+      window.location.href = '/booked.html'
+    }else{
+      console.log("Request Failed Due to " + data.msg);
+    }
+  }).fail(function(err){
+    console.log("Request Failed Due to " + err);
+  });
+};
+//------------------------------------------------------------------------------
+var disablebook = function(){
+  $('#book').addClass('disabled');
+  $('.personalDataForm').hide();
+  $('#booking').val(0);
+};
+var enablebook = function(){
+  $('#book').removeClass('disabled');
+  $('.personalDataForm').show();
+  $('#booking').val(1);
+}
 //------------------------------------------------------------------------------
 $(document).ready(function(){
   buildForm();
+  disablebook();
 });

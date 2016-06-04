@@ -1,19 +1,38 @@
 {
-  "food": {
-    "Roti": 10,
-    "Paratha": 12,
-    "Plain Naan": 20,
-    "Butter Naan": 25,
-    "Paneer Hyderabad": 40,
-    "Paneer Makhani": 45,
-    "Chicken Tandoori": 45,
-    "Chicken 65": 65,
-    "Rice": 30,
-    "Sohini Tandoori": 5
-  },
+  "food" : {
+    "roti" : {
+      "name" : "Roti" ,
+      "price" : 10
+    },
+    "Paratha" : {
+      "name" : "Plain Paratha" ,
+      "price" : 15
+    },
+    "paneerbm" : {
+      "name" : "Paneer Butter Masala",
+      "price" : 40
+    },
+    "chickentnd" : {
+      "name" : "Chicken Tandoori",
+      "price" : 50
+    },
+    "chicknbm" : {
+      "name" : "Chicken Butter Masala",
+      "price" : 55
+    }
+  } ,
   "venue": {
-    "Ghatikia": 1000,
-    "Patia": 3000,
-    "CSpur": 3000
+    "ghatikia" : {
+      "name" : "Ghatikia" ,
+      "price" : 3000
+    } ,
+    "shahidnagar" : {
+      "name" : "Shahid Nagar" ,
+      "price" : 5000
+    } ,
+    "cspur" : {
+      "name" : "Chandrasekharpur" ,
+      "price" : 4500
+    }
   }
 }
