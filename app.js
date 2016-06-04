@@ -93,13 +93,87 @@ app.post('/bookwithoutquote',function(req,res,next){
 });
 app.post('/bookwithquote',function(req,res,next){
   console.log(req.body);
-  res.status=200;
-  res.send("Done");
+  var response ={
+    success : true,
+    msg : "",
+  };
+  var a = parseInt(req.body.checkHuman_a);
+  var b = parseInt(req.body.checkHuman_b);
+  var c = parseInt(req.body.senderHuman);
+  var message = '<h2> Booking Order Received </h2> <br> Name : '+req.body.name +
+                '<br> Email : '+req.body.email +
+                '<br> Contact Number : ' + req.body.contact_no+
+                '<br> Price is '+req.body.price;
+  if(1){
+    var message = "<h1>Thank You for booking with BrookHaven.</h1><br>"+
+                    "Receipt will be attached here"
+    var email = new sendgrid.Email({
+      to:      'brook16haven@gmail.com',
+      toname : 'BrookHaven',
+      from:     req.body.email,
+      fromname: req.body.name,
+      subject:  'BrookHaven Booking Order With Quote Received',
+      replyto : req.body.email,
+      text:     'Booking Order Received Name : '+req.body.name+" Email : "+
+                  req.body.email + " Phone : "+req.body.contact_no+
+                  "Price : "+req.body.price,
+      html: message
+    });
+    sendgrid.send(email,function(err,json){
+      if(err){
+        console.log(err);
+        res.status=500;
+        response.success=false;
+        response.msg = "Mail sending error";
+        res.send(response);
+      }else{
+        console.log(json);
+        message = '<h2> Booking Order Received </h2> <br> Name : '+req.body.name +
+                      '<br> Email : '+req.body.email +
+                      '<br> Contact Number : ' + req.body.contact_no+
+                      '<br> Price is '+req.body.price;
+        email     = new sendgrid.Email({
+          to:      req.body.email,
+          toname : req.body.name,
+          from:     'brook16haven@gmail.com',
+          fromname: 'BrookHaven',
+          subject:  'Thank You for Booking in BrookHaven',
+          replyto : 'brook16haven@gmail.com',
+          text:     'Thank You for booking with BrookHaven. Your price is '+req.body.price,
+          html: message
+        });
+        sendgrid.send(email,function(err,json){
+          if(err){
+            res.status=500;
+            response.success=false;
+            response.msg="Mail sent to brookhaven but user mail error";
+            res.send(response);
+          }else{
+            console.log(json);
+            res.status=200;
+            response.success=true;
+            response.msg="Mails sent succesfully";
+            res.send(response);
+          }
+        });
+      }
+    });
+  }else{
+    res.status=500;
+    response.success=false;
+    response.msg = "Not Human";
+    res.send(response);
+  }
 });
 app.post('/calculateprice',function(req,res,next){
   console.log(req.body);
+  var response = {
+    success : true ,
+    price : 0
+  };
+  response.price=200;
   res.status=200;
-  res.send("Done");
+  res.send(response);
 });
 app.post('/bookevent',function(req,res,next){
   console.log(req.body);
