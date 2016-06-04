@@ -1,44 +1,55 @@
 //-------------------------------------Functions to build form--------------
-var buildFood = function(){
+var buildFood = function(data){
   var foodEle = $('#food').find('.filldata');
   foodEle.empty();
-  $.each(data.food,function(itemName,itemValue){
+  $.each(data.food,function(itemkey,item){
+    //console.log(item);
     foodEle.append($('<div/>', {
       class: 'checkbox'
     }).append(
       $('<label/>').append(
         $('<input/>' , {
           type: 'checkbox' ,
-          value: itemValue ,
+          value: itemkey ,
           name : 'foodcheck'
         })
-      ).append(itemName)
-      .append($('<strong/>').append(' Rs' + itemValue))
+      ).append(item.name)
+      .append($('<strong/>').append(' Rs' + item.price))
     ));
   });
 };
-var buildVenue = function(){
+var buildVenue = function(data){
   var venueEle = $('#venue').find('.filldata');
   venueEle.empty();
-  $.each(data.venue,function(location,price){
+  $.each(data.venue,function(key,location){
     venueEle.append($('<div/>',{
       class : 'radio'
     })
     .append($('<label/>')
     .append($('<input>' , {
       type : 'radio',
-      value : price,
+      value : key,
       name : 'venue',
     }))
-    .append(location)
+    .append(location.name)
     .append($('<strong/>')
-    .append(" Rs" + price)
+    .append(" Rs" + location.price)
   )));
   });
 }
 var buildForm = function(){
-  buildFood();
-  buildVenue();
+  $.ajax({
+    method : 'post',
+    url : '/getform',
+    cache : true ,
+    async : false
+  }).success(function(data){
+    //console.log(data);
+    buildFood(data);
+    buildVenue(data);
+  }).fail(function(err){
+    console.log("Failed due to "+err);
+  });
 };
 //------------------------------------------------------------------------------
 

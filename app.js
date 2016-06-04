@@ -5,7 +5,7 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
+var fs = require('fs');
 
 var routes = require('./routes/index');
 var users = require('./routes/users');
@@ -35,6 +35,20 @@ var getstring = function(id){
   	return id.split('_').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
 };
 app.use('/', routes);
+app.post('/getform',function(req,res,next){
+  console.log("Done");
+  fs.readFile('prices.json',function(err,data){
+    if(err){
+      console.log(err);
+      res.status=500;
+      res.send("There was some problem");
+    }else{
+      var obj = JSON.parse(data);
+      res.status=200;
+      res.send(obj);
+    }
+  });
+});
 app.use('/users', users);
 app.post('/bookwithoutquote',function(req,res,next){
   console.log(req.body);
@@ -255,7 +269,6 @@ app.post('/bookevent',function(req,res,next){
     res.send('Not Human ?');
   }
 });
-
 app.post('/contactus',function(req,res,next){
   console.log(req.body);
   //Email construction for brookhaven
