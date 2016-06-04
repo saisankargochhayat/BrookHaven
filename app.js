@@ -300,10 +300,7 @@ app.post('/contactus',function(req,res,next){
           html: '<h1> Thank You for contacting us. We will get back to you shortly.</h1> '
         });
 
-        //If the server does not get any route , it will redirect to 404 page.
-        app.use(function(req, res, next) {
-  res.status(404).send('Sorry cant find that!');
-});
+    
 
         //send mail to user
         sendgrid.send(email, function(err, json) {
@@ -324,9 +321,7 @@ app.post('/contactus',function(req,res,next){
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
-  var err = new Error('Not Found');
-  err.status = 404;
-  next(err);
+  res.redirect('/404.html')
 });
 
 // error handlers
