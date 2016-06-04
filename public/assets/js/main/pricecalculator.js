@@ -11,7 +11,8 @@ var buildFood = function(data){
         $('<input/>' , {
           type: 'checkbox' ,
           value: itemkey ,
-          name : 'foodcheck'
+          name : 'foodcheck',
+          onchange : 'disablebook()'
         })
       ).append(item.name)
       .append($('<strong/>').append(' Rs' + item.price))
@@ -30,6 +31,7 @@ var buildVenue = function(data){
       type : 'radio',
       value : key,
       name : 'venue',
+      onchange : 'disablebook()'
     }))
     .append(location.name)
     .append($('<strong/>')
@@ -90,6 +92,7 @@ var getprice = function(){
   }).done(function(data){
     if(data.success){
       $('#finalPrice').text(data.price + ' /-');
+      $('#book').removeClass('disabled');
     }else{
       console.log("Request Failed");
       $('#finalPrice').text("Error");
@@ -100,8 +103,11 @@ var getprice = function(){
     $('#finalPrice').text("Error");
   });
 }
-
+var disablebook = function(){
+  $('#book').addClass('disabled');
+};
 //------------------------------------------------------------------------------
 $(document).ready(function(){
   buildForm();
+  disablebook();
 });
