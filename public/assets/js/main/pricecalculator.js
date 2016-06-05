@@ -1,4 +1,4 @@
-//-------------------------------------Functions to build form--------------
+//-------------------------------------Functions to build form------------------
 var buildFood = function(data){
   var foodEle = $('#food').find('.filldata');
   foodEle.empty();
@@ -39,6 +39,7 @@ var buildVenue = function(data){
   )));
   });
 }
+//--------------------------------Get the form elements-------------------------
 var buildForm = function(){
   $.ajax({
     method : 'post',
@@ -53,10 +54,18 @@ var buildForm = function(){
     console.log("Failed due to "+err);
   });
 };
-
-//--------------------------------Get the form elements-----------------------------
+//---------------------------------Get the Price from the selected data---------
+var showloader = function(){
+    $('#pageloader').css('display','block');
+    $('.loader-item').css('display','block');
+}
+var hideloader = function(){
+  $('#pageloader').css('display','none');
+  $('.loader-item').css('display','none');
+}
 var getprice = function(){
   $('#finalPrice').text("Please Wait");
+  showloader();
   var form = $('#priceform').serialize();
   console.log(form);
   $.ajax({
@@ -67,6 +76,7 @@ var getprice = function(){
     if(data.success){
       $('#finalPrice').text('Rs ' + data.price + ' /-');
       enablebook();
+      hideloader();
     }else{
       console.log("Request Failed");
       $('#finalPrice').text("Error");
@@ -80,6 +90,7 @@ var getprice = function(){
 //---------------------------------Booking with Price---------------------------
 
 var bookit = function(){
+  showloader();
   var obj = $('#priceform').serialize();
   $.ajax({
     method : 'POST',
@@ -87,7 +98,8 @@ var bookit = function(){
     data : obj
   }).success(function(data){
     if(data.success){
-      window.location.href = '/booked.html'
+      hideloader();
+      window.location.href = '/booked.html';
     }else{
       console.log("Request Failed Due to " + data.msg);
     }
