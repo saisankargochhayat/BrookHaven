@@ -34,12 +34,15 @@ app.use(express.static(path.join(__dirname, 'public')));
 var getstring = function(id){
   	return id.split('_').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
 };
+//-----------------------Variable Initialization ends---------------------------
 app.use('/', routes);
+//-----------------------Functions to handle routes-----------------------------
+//Calculate Price from the selected data
 var calculatePrice = function(data){
   return 200;
 }
+//Function to send the prices.json file to the front end
 app.post('/getform',function(req,res,next){
-  //console.log("Done");
   fs.readFile('prices.json',function(err,data){
     if(err){
       console.log(err);
@@ -53,6 +56,7 @@ app.post('/getform',function(req,res,next){
   });
 });
 app.use('/users', users);
+//--------Function to handle quick booking without quote------------------
 app.post('/bookwithoutquote',function(req,res,next){
   console.log(req.body);
   var a = parseInt(req.body.checkHuman_a);
@@ -61,7 +65,7 @@ app.post('/bookwithoutquote',function(req,res,next){
   var message = '<h2> Booking Order Received </h2> <br> Name : '+req.body.name +
                 '<br> Email : '+req.body.email +
                 '<br> Contact Number : ' + req.body.contact_no;
-  if(a+b == c){
+  if(a+b == c){       //Check if human
     var email = new sendgrid.Email({
       to:      'brook16haven@gmail.com',
       toname : 'BrookHaven',
@@ -73,7 +77,7 @@ app.post('/bookwithoutquote',function(req,res,next){
                   req.body.email + " Phone : "+req.body.contact_no,
       html: message
     });
-    sendgrid.send(email,function(err,json){
+    sendgrid.send(email,function(err,json){ //Send email to brookhaven
       if(err){
         console.log(err);
         res.status = 500;
@@ -81,7 +85,7 @@ app.post('/bookwithoutquote',function(req,res,next){
       }else{
         console.log(json);
         message = "<h1>Thank You for booking with BrookHaven.</h1><br> Your request has been recorded. We will contact you shortly."
-        var email     = new sendgrid.Email({
+        var email     = new sendgrid.Email({ //Send email to client
           to:       req.body.email,
           toname : req.body.name,
           from:     'brook16haven@gmail.com',
@@ -110,7 +114,10 @@ app.post('/bookwithoutquote',function(req,res,next){
 });
 app.post('/bookwithquote',function(req,res,next){
   console.log(req.body);
-  if(req.body.booking==1){
+  //---------------------------The variable req.body.booking decides if the r
+  //---------------------------request is to book after calculating price or just
+  //---------------------------send back the calculated price.
+  if(req.body.booking==1){            //Book after calculating price
     req.body.price = calculatePrice(req.body);
     var response ={
       success : true,
@@ -183,7 +190,7 @@ app.post('/bookwithquote',function(req,res,next){
       response.msg = "Not Human";
       res.send(response);
     }
-  }else{
+  }else{        //Simply calculate price and send back
     price = calculatePrice(req.body);
     res.status = 200;
     response= {
@@ -193,6 +200,7 @@ app.post('/bookwithquote',function(req,res,next){
     res.send(response);
   }
 });
+//-------------------------------Temporary booking function..Not in use right now
 app.post('/bookevent',function(req,res,next){
   console.log(req.body);
   res.status(200);
@@ -273,6 +281,8 @@ app.post('/bookevent',function(req,res,next){
     res.send('Not Human ?');
   }
 });
+
+//-------------------------------Contact Us function----------------------------
 app.post('/contactus',function(req,res,next){
   console.log(req.body);
   //Email construction for brookhaven
@@ -317,7 +327,7 @@ app.post('/contactus',function(req,res,next){
           html: '<h1> Thank You for contacting us. We will get back to you shortly.</h1> '
         });
 
-    
+
 
         //send mail to user
         sendgrid.send(email, function(err, json) {
