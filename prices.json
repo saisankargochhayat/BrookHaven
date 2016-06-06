@@ -4,7 +4,7 @@
       "name" : "Roti" ,
       "price" : 10
     },
-    "Paratha" : {
+    "paratha" : {
       "name" : "Plain Paratha" ,
       "price" : 15
     },
