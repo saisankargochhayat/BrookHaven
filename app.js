@@ -31,9 +31,10 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-var getstring = function(id){
+/*var getstring = function(id){
   	return id.split('_').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
 };
+*/
 //-----------------------Variable Initialization ends---------------------------
 app.use('/', routes);
 //-----------------------Functions to handle routes-----------------------------
