@@ -1,9 +1,9 @@
 //-------------------------------------Functions to build form------------------
 var mainJSON;
-var buildFood = function(data){
+var buildFood = function(){
   var foodEle = $('#food').find('.filldata');
   foodEle.empty();
-  $.each(data.food,function(itemkey,item){
+  $.each(mainJSON.food,function(itemkey,item){
     //console.log(item);
     foodEle.append($('<div/>', {
       class: 'checkbox'
@@ -20,10 +20,10 @@ var buildFood = function(data){
     ));
   });
 };
-var buildVenue = function(data){
+var buildVenue = function(){
   var venueEle = $('#venue').find('.filldata');
   venueEle.empty();
-  $.each(data.venue,function(key,location){
+  $.each(mainJSON.venue,function(key,location){
     venueEle.append($('<div/>',{
       class : 'radio'
     })
@@ -60,8 +60,8 @@ var eventappend =function(value,text){
     text: text
 }));
 };
-var buildeventform = function(data){
-  $.each(data.event,function(key,value){
+var buildeventform = function(){
+  $.each(mainJSON.event,function(key,value){
     eventappend(key,value.name);
   });
   var eventid = $.urlParam('event');
@@ -70,14 +70,15 @@ var buildeventform = function(data){
 }
 var addsubevents = function(){
   id=$('#eventselect option:selected').val();
-  console.log("Id is "+id);
-  $('#subeventselect').find('option').remove();
-  console.log(mainJSON.event[id].subevent);
-  $.each(mainJSON.event[id].subevent,function(key,value){
-    subeventappend(key,value.name);
-  });
-  var subeventid = $.urlParam('subevent');
-  $('#subeventselect').val(subeventid);
+  if(id){
+    $('#subeventselect').find('option').remove();
+    console.log(mainJSON.event[id].subevent);
+    $.each(mainJSON.event[id].subevent,function(key,value){
+      subeventappend(key,value.name);
+    });
+    var subeventid = $.urlParam('subevent');
+    $('#subeventselect').val(subeventid);
+  }
 };
 //--------------------------------Get the form elements-------------------------
 var buildForm = function(){
@@ -90,9 +91,9 @@ var buildForm = function(){
     //console.log(data);
     mainJSON = data;
     console.log(mainJSON);
-    buildFood(data);
-    buildVenue(data);
-    buildeventform(data);
+    buildFood();
+    buildVenue();
+    buildeventform();
   }).fail(function(err){
     console.log("Failed due to "+err);
   });
@@ -107,6 +108,7 @@ var hideloader = function(){
   $('.loader-item').css('display','none');
 }
 var getprice = function(){
+  $('#booking').val(0);
   $('#finalPrice').text("Please Wait");
   showloader();
   var form = $('#priceform').serialize();
