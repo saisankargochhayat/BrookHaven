@@ -23,7 +23,7 @@
     top: 0;
 }
 @media (max-width: 768px) {
-  .brand-heading-typed-container-2 {
+  .brand-heading-typed-container {
     font-size: 50%;
 }
 }
