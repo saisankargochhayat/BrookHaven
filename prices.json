@@ -4,7 +4,7 @@
       "name" : "Roti" ,
       "price" : 10
     },
-    "Paratha" : {
+    "paratha" : {
       "name" : "Plain Paratha" ,
       "price" : 15
     },
@@ -33,6 +33,100 @@
     "cspur" : {
       "name" : "Chandrasekharpur" ,
       "price" : 4500
+    }
+  } ,
+  "event" : {
+    "family" : {
+      "name" : "Family/Social Gatherings" ,
+      "subevent" : {
+        "wedding" : {
+          "name" : "Wedding" ,
+          "price" : 500
+        } ,
+        "reception" : {
+          "name" : "Reception" ,
+          "price" : 500
+        } ,
+        "nceremony" : {
+          "name" : "Naming Ceremony" ,
+          "price" : 300
+        } ,
+        "tceremony" : {
+          "name" : "Thread Ceremony" ,
+          "price" : 300
+        } ,
+        "anniversaries" : {
+          "name" : "Anniversaries" ,
+          "price" : 300
+        }
+      }
+    } ,
+    "parties" : {
+      "name" : "Parties" ,
+      "subevent" : {
+        "biparty" : {
+          "name" : "Birthday Party" ,
+          "price" : 300
+        } ,
+        "bachparty" : {
+          "name" : "Bachelor Party" ,
+          "price" : 500
+        } ,
+        "cparty" : {
+          "name" : "Coctail Party" ,
+          "price" : 400
+        }
+      }
+    } ,
+    "cevents" : {
+      "name" : "Corporate Events" ,
+      "subevent" : {
+        "mc" : {
+          "name" : "Meeting/Conference" ,
+          "price" : 200
+        } ,
+        "bmeet" : {
+          "name" : "Board Room Meeting" ,
+          "price" : 500
+        } ,
+        "ameet" : {
+          "name" : "Annual Meets" ,
+          "price" : 400
+        } ,
+        "strain" : {
+          "name" : "Sales Training" ,
+          "price" : 500
+        } ,
+        "plaunch" : {
+          "name" : "Product Launch" ,
+          "price" : 400
+        } ,
+        "exhibition" : {
+          "name" : "Exhibition" ,
+          "price" : 400
+        }
+      }
+    } ,
+    "sevents" : {
+      "name" : "Student Events" ,
+      "subevent" : {
+        "ameet" : {
+          "name" : "Alumni Meet" ,
+          "price" : 400
+        } ,
+        "fparty" : {
+          "name" : "Farewell Party" ,
+          "price" : 550
+        } ,
+        "fnight" : {
+          "name" : "Fresher's Night" ,
+          "price" : 400
+        } ,
+        "rparty" : {
+          "name" : "Reunion Night" ,
+          "price" : 450
+        }
+      }
     }
   }
 }

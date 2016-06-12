@@ -31,28 +31,49 @@ app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
 
-var getstring = function(id){
+/*var getstring = function(id){
   	return id.split('_').map(s => s.charAt(0).toUpperCase() + s.slice(1)).join(' ');
 };
-app.use('/', routes);
-var calculatePrice = function(data){
-  return 200;
-}
-app.post('/getform',function(req,res,next){
-  //console.log("Done");
-  fs.readFile('prices.json',function(err,data){
-    if(err){
-      console.log(err);
-      res.status=500;
-      res.send("There was some problem");
-    }else{
-      var obj = JSON.parse(data);
-      res.status=200;
-      res.send(obj);
-    }
-  });
+*/
+var mainJSON;
+fs.readFile('prices.json',function(err,data){
+  if(err){
+    console.log(err);
+  }else{
+    console.log("JSON loaded succesfully!");
+    mainJSON = JSON.parse(data);
+  }
 });
-app.use('/users', users);
+//-----------------------Variable Initialization ends---------------------------
+app.use('/', routes);
+//-----------------------Functions to handle routes-----------------------------
+//Calculate Price from the selected data
+var calculatePrice = function(data,callbackfun){
+  var finalTotal;
+  var food = 0;
+  if(data.foodcheck){
+    if(Array.isArray(data.foodcheck)){
+      data.foodcheck.forEach(function(s){
+        food = food + mainJSON.food[s].price;
+      });
+    }else{
+      food = food + mainJSON.food[data.foodcheck].price;
+    }
+  }
+  console.log("Food is "+food);
+  food = food * data.no_of_people;
+  var venuePrice = 0;
+  if(mainJSON.venue[data.venue]){
+    venuePrice = mainJSON.venue[data.venue].price;
+  }
+  callbackfun(food + venuePrice);
+}
+//Function to send the prices.json file to the front end
+app.post('/getform',function(req,res,next){
+  res.status=200;
+  res.send(mainJSON);
+});
+//--------Function to handle quick booking without quote------------------
 app.post('/bookwithoutquote',function(req,res,next){
   console.log(req.body);
   var a = parseInt(req.body.checkHuman_a);
@@ -61,7 +82,7 @@ app.post('/bookwithoutquote',function(req,res,next){
   var message = '<h2> Booking Order Received </h2> <br> Name : '+req.body.name +
                 '<br> Email : '+req.body.email +
                 '<br> Contact Number : ' + req.body.contact_no;
-  if(a+b == c){
+  if(a+b == c){       //Check if human
     var email = new sendgrid.Email({
       to:      'brook16haven@gmail.com',
       toname : 'BrookHaven',
@@ -73,15 +94,16 @@ app.post('/bookwithoutquote',function(req,res,next){
                   req.body.email + " Phone : "+req.body.contact_no,
       html: message
     });
-    sendgrid.send(email,function(err,json){
+    sendgrid.send(email,function(err,json){ //Send email to brookhaven
       if(err){
         console.log(err);
         res.status = 500;
         res.send("There was some problem in sending email. Please try again later.");
       }else{
-        console.log(json);
+        console.omega160
+        (json);
         message = "<h1>Thank You for booking with BrookHaven.</h1><br> Your request has been recorded. We will contact you shortly."
-        var email     = new sendgrid.Email({
+        var email     = new sendgrid.Email({ //Send email to client
           to:       req.body.email,
           toname : req.body.name,
           from:     'brook16haven@gmail.com',
@@ -110,12 +132,15 @@ app.post('/bookwithoutquote',function(req,res,next){
 });
 app.post('/bookwithquote',function(req,res,next){
   console.log(req.body);
-  if(req.body.booking==1){
-    req.body.price = calculatePrice(req.body);
+  //---------------------------The variable req.body.booking decides if the r
+  //---------------------------request is to book after calculating price or just
+  //---------------------------send back the calculated price.
+  if(req.body.booking==1){            //Book after calculating price
     var response ={
       success : true,
       msg : "",
     };
+    req.body.price = receivedPrice;
     var a = parseInt(req.body.checkHuman_a);
     var b = parseInt(req.body.checkHuman_b);
     var c = parseInt(req.body.senderHuman);
@@ -183,16 +208,20 @@ app.post('/bookwithquote',function(req,res,next){
       response.msg = "Not Human";
       res.send(response);
     }
-  }else{
-    price = calculatePrice(req.body);
-    res.status = 200;
-    response= {
-      success : true,
-      price : price
-    }
-    res.send(response);
+  }else{        //Simply calculate price and send back
+    calculatePrice(req.body,function(val){
+      console.log(val);
+      var response = {
+        success : true,
+        price : val
+      };
+      console.log(response);
+      res.status=200;
+      res.send(response);
+    });
   }
 });
+//-------------------------------Temporary booking function..Not in use right now
 app.post('/bookevent',function(req,res,next){
   console.log(req.body);
   res.status(200);
@@ -273,6 +302,8 @@ app.post('/bookevent',function(req,res,next){
     res.send('Not Human ?');
   }
 });
+
+//-------------------------------Contact Us function----------------------------
 app.post('/contactus',function(req,res,next){
   console.log(req.body);
   //Email construction for brookhaven
@@ -317,7 +348,7 @@ app.post('/contactus',function(req,res,next){
           html: '<h1> Thank You for contacting us. We will get back to you shortly.</h1> '
         });
 
-    
+
 
         //send mail to user
         sendgrid.send(email, function(err, json) {
