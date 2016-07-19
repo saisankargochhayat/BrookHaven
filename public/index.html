@@ -1812,16 +1812,7 @@
             </div><!-- container end -->
         </div><!-- section clients end -->
 
-        <div id='floatbutton' style = "position: fixed; bottom: 1%; right: 2%;">
-          <a href="grabacoffee.html" data-toggle="popover" data-trigger='hover' title="Grab A Coffee !" >
-            <img src="assets/img/coffee.png" alt="Grab A Coffee" />
-          </a>
-        </div>
-        <script>
-          $(document).ready(function(){
-              $('[data-toggle="popover"]').popover();
-          });
-        </script>
+
         <!-- footer Area
         ===================================== -->
         <div id="footer" class="footer-two pt50">
@@ -1915,7 +1906,11 @@
             </div><!-- container-fluid end -->
         </div><!-- footer end -->
 
-
+        <div id='floatbutton' style = "position: fixed; bottom: 1%; right: 2%;">
+          <a href="grabacoffee.html" data-toggle="popover" data-trigger='hover' title="Grab A Coffee !" data-content='Click me'>
+            <img src="assets/img/coffee.png" alt="Grab A Coffee" />
+          </a>
+        </div>
         <!-- JQuery Core
         =====================================-->
         <script src="assets/js/core/jquery.min.js"></script>
@@ -1953,5 +1948,28 @@
           window.location.href = "./contact_us.html";
         });
         </script>
+        <script>
+          $(document).ready(function(){
+              $('[data-toggle="popover"]').popover({
+                trigger : 'hover',
+                animation : false,
+                placement : 'left'
+              });
+              getLocation();
+          });
+        </script>
+        <script>
+          function getLocation() {
+              if (navigator.geolocation) {
+                  navigator.geolocation.getCurrentPosition(showPosition);
+              } else {
+                  console.log("Geolocation is not supported by this browser.");
+              }
+          }
+          function showPosition(position) {
+            console.log("Latitude: " + position.coords.latitude +
+            "\nLongitude: " + position.coords.longitude);
+          }
+          </script>
     </body>
 </html>
