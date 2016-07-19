@@ -1812,7 +1812,16 @@
             </div><!-- container end -->
         </div><!-- section clients end -->
 
-
+        <div id='floatbutton' style = "position: fixed; bottom: 1%; right: 2%;">
+          <a href="grabacoffee.html" data-toggle="popover" data-trigger='hover' title="Grab A Coffee !" >
+            <img src="assets/img/coffee.png" alt="Grab A Coffee" />
+          </a>
+        </div>
+        <script>
+          $(document).ready(function(){
+              $('[data-toggle="popover"]').popover();
+          });
+        </script>
         <!-- footer Area
         ===================================== -->
         <div id="footer" class="footer-two pt50">
