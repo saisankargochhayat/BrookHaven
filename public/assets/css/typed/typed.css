@@ -1,11 +1,11 @@
 /* code for animated blinking cursor */
 .brand-heading-typed-container {
-    background: rgba(0,0,0,.7);
+    background: rgba(0,0,0,.5);
     max-width: 650px;
     padding: 10px;
     margin: 0 auto;
     font-size: 40px;
-    font-family: monospace, sans-serif !important;
+    font-family: 'Lato' !important;
     -webkit-border-radius: 5px;
        -moz-border-radius: 5px;
             border-radius: 5px;

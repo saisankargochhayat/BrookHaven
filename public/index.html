@@ -8,7 +8,7 @@
         <meta name="author" content="Harry Boo">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
         <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-
+        <link rel="stylesheet" type="text/css" href="//fonts.googleapis.com/css?family=Lato" />
         <!-- Favicons -->
         <link rel="shortcut icon" href="assets/img/favicon.png">
         <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
@@ -211,15 +211,8 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12 col-xl-12">
                             <h1 class="brand-heading text-capitalize color-light pt10 pb10">
-                                 <div class="brand-heading-typed-container">
-                                    <div id="typed-strings">
-                                        <p>Welcome to <span class="color-pasific">BrookHaven</span>.^1000</p>
-                                        <p>We host Events.^1000</p>
-                                        <p>Hospitality with Elegance^1000</p>
-                                        <p>Start Booking Now.^5000</p>
-                                    </div>
-                                    <span id="typed" style="white-space:pre;"></span>
-                                </div>
+                                 <div class="brand-heading-typed-container" id="faded-text">
+                                 </div>
                             </h1>
                             <a href='#services' class="button button-pasific button-lg hover-ripple-out animated" data-animation="fadeInLeft" data-animation-delay="2000">Get Started</a>
                             <a href="./booknow.html" class="button button-lg button-blue hover-ripple-out animated" data-animation="fadeInRight" data-animation-delay="3000">Book Now</a>
@@ -259,57 +252,56 @@
                         <p class="">
                             <span class="lead"><strong>BrookHaven is one of the best designed convention centre of this scale located in Bhubaneswar.</strong></span><br><br>
 
-                        With its multiple event spaces with flexible air-conditioned room configurations,
-			BrookHaven can host national and international conferences, large exhibitions, gala dinners,
-			award ceremonies, meetings and seminars, cocktail receptions, weddings, corporate, public and community events.
+                            With its multiple event spaces with flexible air-conditioned room configurations,
+			                      BrookHaven can host national and international conferences, large exhibitions, gala dinners,
+			                      award ceremonies, meetings and seminars, cocktail receptions, weddings, corporate, public and community events.
                     </div>
                     <!-- title description end -->
                      <div class="row mt50">
-                    
+
                     <!-- item one start -->
                     <div class="col-md-3 col-sm-6 col-xs-6 animated" data-animation="fadeInLeft" data-animation-delay="100">
-                        <div class="content-box content-box-center">                        
+                        <div class="content-box content-box-center">
                                 <img src="assets/img/serv/Untitled-1.png" alt="" class="img-responsive">
                                 <h5>User friendliness + Ease of Customization</h5>
-                            
-                      
+
+
                         </div>
                     </div>
                     <!-- item one end -->
-                    
+
                     <!-- item two start -->
                     <div class="col-md-3 col-sm-6 col-xs-6 animated" data-animation="fadeInLeft" data-animation-delay="200">
-                        <div class="content-box content-box-center">                        
+                        <div class="content-box content-box-center">
                                 <img src="assets/img/serv/savings.png" alt="" class="img-responsive">
                                 <h5>Seamless and Organized Event Planning at Users Discretion</h5>
-                            
-                      
+
+
                         </div>
                     </div>
                     <!-- item two end -->
-                    
+
                     <!-- item three start -->
                     <div class="col-md-3 col-sm-6 col-xs-6 animated" data-animation="fadeInRight" data-animation-delay="300">
-                        <div class="content-box content-box-center">                        
-                            <span><img src="assets/img/serv/coupon.png" alt="" class="img-responsive center">
-</span>
+                        <div class="content-box content-box-center">
+                            <span><img src="assets/img/serv/coupon.png" alt="" class="img-responsive center"></span>
                                 <h5>Cost Efficient - The most cost optimized solutons you can get at your convinience</h5>
-                      
+
                         </div>
                     </div>
                     <!-- item three end -->
-                    
+
                     <!-- item four start -->
                     <div class="col-md-3 col-sm-6 col-xs-6 animated" data-animation="fadeInRight" data-animation-delay="400">
-                        <div class="content-box content-box-center">                        
+                        <div class="content-box content-box-center">
                                 <img src="assets/img/serv/Untitled-2.png" alt="" class="img-responsive">
                                 <h5>Catering to all formats with Huge Diversity of Choice</h5>
-                      
+
                         </div>
                     </div>
-                    <!-- item four start -->                    
-                    
-                </div>                
+                    <!-- item four start -->
+
+                </div>
                 </div>
             </div>
         </div>
@@ -1879,8 +1871,25 @@
                 animation : false,
                 placement : 'left'
               });
-
+              setInterval(textTransition, 1000)
           });
+        </script>
+        <script>
+          function textTransition(){
+            var strings = ['Welcome to <span class="color-pasific">BrookHaven.</span>',
+                           'We host Events.',
+                           'Hospitality with Elegance.']
+            var prevString = $('#faded-text').html();
+            if(prevString == '' || prevString == 'Hospitality with Elegance.'){
+              $('#faded-text').html('Welcome to <span class="color-pasific">BrookHaven.</span>').fadeIn("slow");
+            }
+            else if(prevString == 'Welcome to <span class="color-pasific">BrookHaven.</span>'){
+              $('#faded-text').html('We host Events.').fadeIn("slow");
+            }
+            else {
+              $('#faded-text').html('Hospitality with Elegance.').fadeIn("slow");
+            }
+          }
         </script>
     </body>
 </html>
