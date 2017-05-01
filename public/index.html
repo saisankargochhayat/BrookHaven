@@ -211,7 +211,8 @@
                     <div class="row">
                         <div class="col-md-12 col-sm-12 col-xs-12 col-xl-12">
                             <h1 class="brand-heading text-capitalize color-light pt10 pb10">
-                                 <div class="brand-heading-typed-container" id="faded-text">
+                                 <div class="brand-heading-typed-container">
+                                   <div id="faded-text"></div>
                                  </div>
                             </h1>
                             <a href='#services' class="button button-pasific button-lg hover-ripple-out animated" data-animation="fadeInLeft" data-animation-delay="2000">Get Started</a>
@@ -1875,20 +1876,25 @@
           });
         </script>
         <script>
-          function textTransition(){
+          function getNextText(){
             var strings = ['Welcome to <span class="color-pasific">BrookHaven.</span>',
                            'We host Events.',
                            'Hospitality with Elegance.']
             var prevString = $('#faded-text').html();
             if(prevString == '' || prevString == 'Hospitality with Elegance.'){
-              $('#faded-text').html('Welcome to <span class="color-pasific">BrookHaven.</span>').fadeIn("slow");
+              return 'Welcome to <span class="color-pasific">BrookHaven.</span>';
             }
             else if(prevString == 'Welcome to <span class="color-pasific">BrookHaven.</span>'){
-              $('#faded-text').html('We host Events.').fadeIn("slow");
+              return 'We host Events.';
             }
             else {
-              $('#faded-text').html('Hospitality with Elegance.').fadeIn("slow");
+              return 'Hospitality with Elegance.';
             }
+          }
+          function textTransition(){
+            $('#faded-text').fadeOut(function(){
+              $(this).html(getNextText()).fadeIn();
+            });
           }
         </script>
     </body>
