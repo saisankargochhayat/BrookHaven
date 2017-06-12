@@ -4498,3 +4498,18 @@ ul.pagination.pagination-pasific li.active a {
     max-width: 1920px;
     background: transparent;
 }
+
+@media screen and (min-width:1280px) {
+    #serv1{
+       margin-left:9%;
+    }
+    #serv2{
+       margin-left:5%;
+    }
+    #serv3{
+       margin-left:5%;
+    }
+    #serv4{
+       margin-left:5%;
+    }
+}
